@@ -26,6 +26,8 @@
   </div>
 </template>
 
+
+
 <script>
 import topHeader from "./topHeader";
 import digitalFlop from "./digitalFlop";
@@ -34,6 +36,8 @@ import roseChart from "./roseChart";
 import waterLevelChart from "./waterLevelChart";
 import scrollBoard from "./scrollBoard";
 import cards from "./cards";
+
+import { allList } from "@/api/index";
 
 export default {
   name: "DataView",
@@ -49,7 +53,22 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+
+  mounted() {
+    this.list();
+  },
+
+  methods: {
+    list() {
+      allList()
+        .then((res) => {
+          console.log(res, "111111111111111");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
