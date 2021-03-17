@@ -1,7 +1,6 @@
 <template>
   <div id="data-view">
     <dv-full-screen-container>
-
       <top-header />
 
       <div class="main-content">
@@ -28,16 +27,16 @@
 </template>
 
 <script>
-import topHeader from './topHeader'
-import digitalFlop from './digitalFlop'
-import rankingBoard from './rankingBoard'
-import roseChart from './roseChart'
-import waterLevelChart from './waterLevelChart'
-import scrollBoard from './scrollBoard'
-import cards from './cards'
+import topHeader from "./topHeader";
+import digitalFlop from "./digitalFlop";
+import rankingBoard from "./rankingBoard";
+import roseChart from "./roseChart";
+import waterLevelChart from "./waterLevelChart";
+import scrollBoard from "./scrollBoard";
+import cards from "./cards";
 
 export default {
-  name: 'DataView',
+  name: "DataView",
   components: {
     topHeader,
     digitalFlop,
@@ -45,13 +44,13 @@ export default {
     roseChart,
     waterLevelChart,
     scrollBoard,
-    cards
+    cards,
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style lang="less">
@@ -62,7 +61,7 @@ export default {
   color: #fff;
 
   #dv-full-screen-container {
-    background-image: url('./img/bg.png');
+    background-image: url("./img/bg.png");
     background-size: 100% 100%;
     box-shadow: 0 0 3px blue;
     display: flex;
