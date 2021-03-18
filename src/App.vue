@@ -5,22 +5,22 @@
 </template>
 
 <script>
-import datav from './components/datav/index.vue'
+import datav from "./views/home/index.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    datav
+    datav,
   },
-  data () {
-    return {}
-  }
-}
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style lang="less">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

@@ -18,7 +18,8 @@
               <scroll-board />
             </div>
 
-            <cards />
+            <!-- <cards /> -->
+            <gao-map />
           </div>
         </div>
       </div>
@@ -29,13 +30,14 @@
 
 
 <script>
-import topHeader from "./topHeader";
-import digitalFlop from "./digitalFlop";
-import rankingBoard from "./rankingBoard";
-import roseChart from "./roseChart";
-import waterLevelChart from "./waterLevelChart";
-import scrollBoard from "./scrollBoard";
-import cards from "./cards";
+import topHeader from "@/components/topHeader";
+import digitalFlop from "@/components/digitalFlop";
+import rankingBoard from "@/components/rankingBoard";
+import roseChart from "@/components/roseChart";
+import waterLevelChart from "@/components/waterLevelChart";
+import scrollBoard from "@/components/scrollBoard";
+import cards from "@/components/cards";
+import gaoMap from "@/components/gaoMap";
 
 import { allList } from "@/api/index";
 
@@ -49,25 +51,26 @@ export default {
     waterLevelChart,
     scrollBoard,
     cards,
+    gaoMap,
   },
   data() {
     return {};
   },
 
   mounted() {
-    this.list();
+    // this.list();
   },
 
   methods: {
-    list() {
-      allList()
-        .then((res) => {
-          console.log(res, "111111111111111");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    // list() {
+    //   allList()
+    //     .then((res) => {
+    //       console.log(res, "111111111111111");
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
   },
 };
 </script>
@@ -80,7 +83,7 @@ export default {
   color: #fff;
 
   #dv-full-screen-container {
-    background-image: url("./img/bg.png");
+    background-image: url("/src/assets/img/bg.png");
     background-size: 100% 100%;
     box-shadow: 0 0 3px blue;
     display: flex;
