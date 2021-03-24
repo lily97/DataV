@@ -1,27 +1,29 @@
 <template>
   <div id="data-view">
     <dv-full-screen-container>
-      <top-header />
-
-      <div class="main-content">
-        <digital-flop />
-
-        <div class="block-left-right-content">
-          <ranking-board />
-
-          <div class="block-top-bottom-content">
-            <div class="block-top-content">
-              <rose-chart />
-
-              <water-level-chart />
-
-              <scroll-board />
-            </div>
-
-            <!-- <cards /> -->
-            <gao-map />
-          </div>
+      <div class="top">
+        <div class="top-left"></div>
+        <div class="top-center"></div>
+        <div class="top-right"></div>
+      </div>
+      <div class="middle">
+        <div class="middle-left">
+          <div class="middle-left-top"></div>
+          <div class="middle-left-bottom"></div>
         </div>
+        <div class="middle-center">
+          <div class="middle-center-top"></div>
+          <div class="middle-center-bottom"></div>
+        </div>
+        <div class="middle-right">
+          <div class="middle-right-top"></div>
+          <div class="middle-right-bottom"></div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="bottom-left"></div>
+        <div class="bottom-center"></div>
+        <div class="bottom-right"></div>
       </div>
     </dv-full-screen-container>
   </div>
@@ -30,52 +32,27 @@
 
 
 <script>
-import topHeader from "@/components/topHeader";
-import digitalFlop from "@/components/digitalFlop";
-import rankingBoard from "@/components/rankingBoard";
-import roseChart from "@/components/roseChart";
-import waterLevelChart from "@/components/waterLevelChart";
-import scrollBoard from "@/components/scrollBoard";
-import cards from "@/components/cards";
 import gaoMap from "@/components/gaoMap";
-
-import { allList } from "@/api/index";
 
 export default {
   name: "DataView",
   components: {
-    topHeader,
-    digitalFlop,
-    rankingBoard,
-    roseChart,
-    waterLevelChart,
-    scrollBoard,
-    cards,
     gaoMap,
   },
   data() {
     return {};
   },
 
-  mounted() {
-    // this.list();
-  },
+  mounted() {},
 
-  methods: {
-    // list() {
-    //   allList()
-    //     .then((res) => {
-    //       console.log(res, "111111111111111");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
-  },
+  methods: {},
 };
 </script>
 
+
 <style lang="less">
+// @import "../../assets/scss/mixin.scss";
+
 #data-view {
   width: 100%;
   height: 100%;
@@ -89,33 +66,8 @@ export default {
     display: flex;
     flex-direction: column;
   }
-
-  .main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .block-left-right-content {
-    flex: 1;
-    display: flex;
-    margin-top: 20px;
-  }
-
-  .block-top-bottom-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding-left: 20px;
-  }
-
-  .block-top-content {
-    height: 55%;
-    display: flex;
-    flex-grow: 0;
-    box-sizing: border-box;
-    padding-bottom: 20px;
+  .top {
+    
   }
 }
 </style>
