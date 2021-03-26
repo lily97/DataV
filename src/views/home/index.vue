@@ -10,7 +10,9 @@
         <div class="middle-left">
           <div class="middle-left-top">
             <div class="title"></div>
-            <div class="video"></div>
+            <div class="video">
+              <VideoPlayer />
+            </div>
           </div>
           <div class="middle-left-bottom">
             <div class="title"></div>
@@ -22,7 +24,7 @@
         <!-- 轮播+地图 -->
         <div class="middle-center">
           <div class="middle-center-top">
-            <div class="slider"></div>
+            <CarouselSlider />
           </div>
           <div class="middle-center-bottom">
             <div class="map"></div>
@@ -33,7 +35,7 @@
           <div class="middle-right-top">
             <div class="title"></div>
             <div class="word">
-              <RoseChart />
+              <WordCloud />
             </div>
           </div>
           <div class="middle-right-bottom">
@@ -62,7 +64,6 @@
           </div>
         </div>
       </div>
-      <el-button type="primary">主要按钮</el-button>
       <!-- 底部 -->
       <div class="bottom">
         <!-- 诉求数量趋势 -->
@@ -166,12 +167,14 @@
 
 <script>
 import gaoMap from "@/components/gaoMap";
-import CharPie from "@/components/pie";
-import CharLine from "@/components/line";
+import CharPie from "@/components/charPie";
+import CharLine from "@/components/charLine";
 import RankingEnd from "@/components/rankingEnd";
 import RankingSatisfied from "@/components/rankingSatisfied";
 import ScrollBoard from "@/components/scrollBoard";
-import RoseChart from "@/components/roseChart";
+import WordCloud from "@/components/wordCloud";
+import CarouselSlider from "@/components/carouselSlider";
+import VideoPlayer from "@/components/videoPlayer";
 
 export default {
   name: "DataView",
@@ -182,7 +185,9 @@ export default {
     RankingEnd,
     RankingSatisfied,
     ScrollBoard,
-    RoseChart,
+    WordCloud,
+    CarouselSlider,
+    VideoPlayer,
   },
   data() {
     return {
@@ -241,7 +246,6 @@ export default {
         }
         .video {
           height: 250px;
-          border: 1px solid;
           margin-top: 15px;
         }
       }
@@ -254,7 +258,6 @@ export default {
         }
         .pie {
           height: 300px;
-          border: 1px solid;
           margin-top: 15px;
         }
       }
@@ -264,10 +267,9 @@ export default {
       width: 56%;
       // 单位数量轮播
       .middle-center-top {
+        width: 90%;
         height: 100px;
-        border: 1px solid;
-        .slider {
-        }
+        margin: 0 auto;
       }
       // 地图
       .middle-center-bottom {
@@ -289,7 +291,6 @@ export default {
         }
         .word {
           height: 250px;
-          border: 1px solid;
           margin-top: 15px;
         }
       }
@@ -330,7 +331,6 @@ export default {
         }
         .list {
           height: 300px;
-          border: 1px solid;
           margin-top: 15px;
         }
       }

@@ -23,15 +23,26 @@ export default {
         tooltip: {
           trigger: "item",
         },
-        textStyle: {
-          fontSize: 14,
-          color: "#ffffff",
-        },
+        // textStyle: {
+        //   fontSize: 14,
+        //   color: "#ffffff",
+        // },
         series: [
           {
             name: "",
             type: "pie",
             radius: ["30%", "60%"],
+            itemStyle: {
+              normal: {
+                label: {
+                  textStyle: {
+                    color: "#ffffff",
+                    fontSize: 14,
+                    fontWeight: "bolder",
+                  },
+                },
+              },
+            },
             data: [
               { value: 1048, name: "搜索引擎" },
               { value: 735, name: "直接访问" },
@@ -39,13 +50,6 @@ export default {
               { value: 484, name: "联盟广告" },
               { value: 300, name: "视频广告" },
             ],
-            // emphasis: {
-            //   itemStyle: {
-            //     shadowBlur: 10,
-            //     shadowOffsetX: 0,
-            //     shadowColor: "rgba(0, 0, 0, 0.5)",
-            //   },
-            // },
           },
         ],
       };
