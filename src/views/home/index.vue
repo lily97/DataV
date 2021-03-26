@@ -15,10 +15,7 @@
           <div class="middle-left-bottom">
             <div class="title"></div>
             <div class="pie">
-              <dv-active-ring-chart
-                :config="config"
-                style="width: 300px; height: 300px"
-              />
+              <CharPie />
             </div>
           </div>
         </div>
@@ -35,15 +32,37 @@
         <div class="middle-right">
           <div class="middle-right-top">
             <div class="title"></div>
-            <div class="word"></div>
+            <div class="word">
+              <RoseChart />
+            </div>
           </div>
           <div class="middle-right-bottom">
-            <div class="title"></div>
-            <div class="list"></div>
+            <div class="title">
+              <div class="title-left"></div>
+              <div class="title-right">
+                <div
+                  class="ing"
+                  :class="check4 == 1 ? 'checked' : ''"
+                  @click="check4 = 1"
+                >
+                  处理中
+                </div>
+                <div
+                  class="end"
+                  :class="check4 == 2 ? 'checked' : ''"
+                  @click="check4 = 2"
+                >
+                  已办结
+                </div>
+              </div>
+            </div>
+            <div class="list">
+              <ScrollBoard />
+            </div>
           </div>
         </div>
       </div>
-
+      <el-button type="primary">主要按钮</el-button>
       <!-- 底部 -->
       <div class="bottom">
         <!-- 诉求数量趋势 -->
@@ -78,7 +97,9 @@
               <div class="jiantou">>></div>
             </div>
           </div>
-          <div class="content"></div>
+          <div class="content">
+            <CharLine />
+          </div>
         </div>
         <!-- 诉求办结率排行 -->
         <div class="bottom-center">
@@ -105,7 +126,9 @@
               <div class="jiantou">>></div>
             </div>
           </div>
-          <div class="content"></div>
+          <div class="content">
+            <RankingEnd />
+          </div>
         </div>
         <!-- 诉求满意度排行 -->
         <div class="bottom-right">
@@ -132,54 +155,41 @@
               <div class="jiantou">>></div>
             </div>
           </div>
-          <div class="content"></div>
+          <div class="content">
+            <RankingSatisfied />
+          </div>
         </div>
       </div>
     </dv-full-screen-container>
   </div>
 </template>
 
-
-
 <script>
 import gaoMap from "@/components/gaoMap";
+import CharPie from "@/components/pie";
+import CharLine from "@/components/line";
+import RankingEnd from "@/components/rankingEnd";
+import RankingSatisfied from "@/components/rankingSatisfied";
+import ScrollBoard from "@/components/scrollBoard";
+import RoseChart from "@/components/roseChart";
 
 export default {
   name: "DataView",
   components: {
     gaoMap,
+    CharPie,
+    CharLine,
+    RankingEnd,
+    RankingSatisfied,
+    ScrollBoard,
+    RoseChart,
   },
   data() {
     return {
-      // 饼图数据
-      config: {
-        data: [
-          {
-            name: "周口",
-            value: 55,
-          },
-          {
-            name: "南阳",
-            value: 120,
-          },
-          {
-            name: "西峡",
-            value: 78,
-          },
-          {
-            name: "驻马店",
-            value: 66,
-          },
-          {
-            name: "新乡",
-            value: 80,
-          },
-        ],
-      },
-
-      check1: 2,
-      check2: 1,
-      check3: 1,
+      check1: 2, //数量趋势
+      check2: 1, // 办结率
+      check3: 1, // 满意度
+      check4: 1, // 诉求列表
     };
   },
 
@@ -243,7 +253,7 @@ export default {
           background: url("../../assets/img/title-2.png") no-repeat center;
         }
         .pie {
-          height: 250px;
+          height: 300px;
           border: 1px solid;
           margin-top: 15px;
         }
@@ -254,14 +264,14 @@ export default {
       width: 56%;
       // 单位数量轮播
       .middle-center-top {
-        height: 80px;
+        height: 100px;
         border: 1px solid;
         .slider {
         }
       }
       // 地图
       .middle-center-bottom {
-        height: 510px;
+        height: 540px;
         border: 1px solid;
         margin-top: 35px;
         .map {
@@ -286,12 +296,40 @@ export default {
       // 企业诉求列表
       .middle-right-bottom {
         margin-top: 20px;
+        .checked {
+          width: 52px;
+          height: 24px;
+          color: #ffffff;
+          background: #4d9f95;
+          border-radius: 4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
         .title {
-          height: 38px;
-          background: url("../../assets/img/title-6.png") no-repeat center;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: relative;
+          font-size: 12px;
+          color: #4d9f95;
+          .title-left {
+            width: 100%;
+            height: 38px;
+            background: url("../../assets/img/title-6.png") no-repeat center;
+          }
+          .title-right {
+            width: 30%;
+            position: absolute;
+            left: 65%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+          }
         }
         .list {
-          height: 250px;
+          height: 300px;
           border: 1px solid;
           margin-top: 15px;
         }
@@ -358,7 +396,7 @@ export default {
         }
       }
       .content {
-        height: 190px;
+        height: 200px;
       }
     }
     // 诉求办结率排行
@@ -402,7 +440,7 @@ export default {
         }
       }
       .content {
-        height: 190px;
+        height: 200px;
       }
     }
     // 诉求满意度排行
@@ -446,7 +484,7 @@ export default {
         }
       }
       .content {
-        height: 190px;
+        height: 200px;
       }
     }
   }
