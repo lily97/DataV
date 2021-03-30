@@ -27,7 +27,7 @@
             <CarouselSlider />
           </div>
           <div class="middle-center-bottom">
-            <div class="map"></div>
+            <CharMap />
           </div>
         </div>
         <!-- 诉求热词+企业诉求列表 -->
@@ -44,22 +44,22 @@
               <div class="title-right">
                 <div
                   class="ing"
-                  :class="check4 == 1 ? 'checked' : ''"
-                  @click="check4 = 1"
+                  :class="check4 == 2 ? 'checked' : ''"
+                  @click="check4 = 2"
                 >
                   处理中
                 </div>
                 <div
                   class="end"
-                  :class="check4 == 2 ? 'checked' : ''"
-                  @click="check4 = 2"
+                  :class="check4 == 1 ? 'checked' : ''"
+                  @click="check4 = 1"
                 >
                   已办结
                 </div>
               </div>
             </div>
             <div class="list">
-              <ScrollBoard />
+              <ScrollBoard v-bind:type="check4" />
             </div>
           </div>
         </div>
@@ -95,11 +95,11 @@
             </div>
             <div class="title-right">
               <div>更多</div>
-              <div class="jiantou">>></div>
+              <div class="jiantou"></div>
             </div>
           </div>
           <div class="content">
-            <CharLine />
+            <CharLine v-bind:type="check1" />
           </div>
         </div>
         <!-- 诉求办结率排行 -->
@@ -109,26 +109,26 @@
             <div class="title-center">
               <div
                 class="city"
-                :class="check2 == 1 ? 'checked' : ''"
-                @click="check2 = 1"
+                :class="check2 == 2 ? 'checked' : ''"
+                @click="check2 = 2"
               >
                 市
               </div>
               <div
                 class="county"
-                :class="check2 == 2 ? 'checked' : ''"
-                @click="check2 = 2"
+                :class="check2 == 3 ? 'checked' : ''"
+                @click="check2 = 3"
               >
                 县
               </div>
             </div>
             <div class="title-right">
               <div>更多</div>
-              <div class="jiantou">>></div>
+              <div class="jiantou"></div>
             </div>
           </div>
           <div class="content">
-            <RankingEnd />
+            <RankingEnd v-bind:type="check2" />
           </div>
         </div>
         <!-- 诉求满意度排行 -->
@@ -138,26 +138,26 @@
             <div class="title-center">
               <div
                 class="city"
-                :class="check3 == 1 ? 'checked' : ''"
-                @click="check3 = 1"
+                :class="check3 == 2 ? 'checked' : ''"
+                @click="check3 = 2"
               >
                 市
               </div>
               <div
                 class="county"
-                :class="check3 == 2 ? 'checked' : ''"
-                @click="check3 = 2"
+                :class="check3 == 3 ? 'checked' : ''"
+                @click="check3 = 3"
               >
                 县
               </div>
             </div>
             <div class="title-right">
               <div>更多</div>
-              <div class="jiantou">>></div>
+              <div class="jiantou"></div>
             </div>
           </div>
           <div class="content">
-            <RankingSatisfied />
+            <RankingSatisfied v-bind:type="check3" />
           </div>
         </div>
       </div>
@@ -166,7 +166,8 @@
 </template>
 
 <script>
-import gaoMap from "@/components/gaoMap";
+import GaoMap from "@/components/gaoMap";
+import CharMap from "@/components/charMap";
 import CharPie from "@/components/charPie";
 import CharLine from "@/components/charLine";
 import RankingEnd from "@/components/rankingEnd";
@@ -179,7 +180,8 @@ import VideoPlayer from "@/components/videoPlayer";
 export default {
   name: "DataView",
   components: {
-    gaoMap,
+    GaoMap,
+    CharMap,
     CharPie,
     CharLine,
     RankingEnd,
@@ -192,9 +194,9 @@ export default {
   data() {
     return {
       check1: 2, //数量趋势
-      check2: 1, // 办结率
-      check3: 1, // 满意度
-      check4: 1, // 诉求列表
+      check2: 2, // 办结率 市：2，县：3
+      check3: 2, // 满意度 市：2，县：3
+      check4: 2, // 诉求列表 处理中：2  已办结：1
     };
   },
 
@@ -217,8 +219,6 @@ export default {
   #dv-full-screen-container {
     background-image: url("../../assets/img/bg.png");
     background-size: 100% 100%;
-    // display: flex;
-    // flex-direction: column;
     padding: 20px !important;
   }
 
@@ -269,15 +269,13 @@ export default {
       .middle-center-top {
         width: 90%;
         height: 100px;
-        margin: 0 auto;
+        padding-left: 10%;
+        // margin: 0 auto;
       }
       // 地图
       .middle-center-bottom {
         height: 540px;
-        border: 1px solid;
         margin-top: 35px;
-        .map {
-        }
       }
     }
     // 中右部分
@@ -353,6 +351,13 @@ export default {
       align-items: center;
       justify-content: center;
     }
+    // 箭头
+    .jiantou {
+      width: 16px;
+      background: url("../../assets/img/right.png") no-repeat center;
+      margin-top: 1px;
+    }
+
     // 诉求数量趋势
     .bottom-left {
       width: 32%;
@@ -390,9 +395,6 @@ export default {
           display: flex;
           justify-content: space-between;
           cursor: pointer;
-          .jiantou {
-            margin-top: 1px;
-          }
         }
       }
       .content {
@@ -454,7 +456,7 @@ export default {
         .title-left {
           width: 90%;
           height: 38px;
-          background: url("../../assets/img/title-4.png") no-repeat center;
+          background: url("../../assets/img/title-5.png") no-repeat center;
         }
         .title-center {
           width: 15%;

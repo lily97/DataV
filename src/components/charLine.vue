@@ -3,20 +3,57 @@
 </template>
 
 <script>
-// import echarts from "echarts";
 import * as echarts from "echarts";
-
 require("echarts/theme/macarons"); // echarts theme
+import { getAppealNum } from "@/api/index";
+
 export default {
+  props: ["type"],
   data() {
-    return {};
+    return { xData: "", yData: "", timer: null };
   },
+
+  watch: {
+    type() {
+      this.getAppealNum();
+    },
+  },
+
   mounted() {
-    this.initChart();
+    this.$nextTick(() => {
+      this.getAppealNum();
+    });
+    this.timer = setInterval(this.getAppealNum, 600000);
   },
+
+  beforeDestroy() {
+    // 离开页面之前销毁实例
+    if (this.chart) {
+      this.chart.dispose();
+      this.chart = null;
+    }
+    // 离开页面之前清除定时器
+    clearInterval(this.timer);
+  },
+
   methods: {
+    getAppealNum() {
+      //typeId  1 日 2 近七日 3 月
+      getAppealNum({ typeId: this.type })
+        .then((res) => {
+          this.xData = res.data.data.x;
+          this.yData = res.data.data.y;
+          this.initChart();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     initChart() {
-      var myChart = echarts.init(this.$refs.echar);
+      if (this.chart) {
+        this.chart.dispose(); // 如果图例已经渲染 销毁他并重新渲染
+      }
+      this.chart = echarts.init(this.$refs.echar);
       var option = {
         tooltip: {
           trigger: "axis",
@@ -32,7 +69,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: this.xData,
           axisLine: {
             lineStyle: {
               color: "#8F9EC7",
@@ -62,12 +99,11 @@ export default {
           left: "5%",
           bottom: "10%",
           right: "2%",
-          top:'6%'
-        //   containLabel: true, //防止坐标轴溢出
+          top: "6%",
         },
         series: [
           {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: this.yData,
             type: "line",
             smooth: true,
             symbol: "none",
@@ -101,7 +137,7 @@ export default {
           },
         ],
       };
-      myChart.setOption(option);
+      this.chart.setOption(option);
     },
   },
 };

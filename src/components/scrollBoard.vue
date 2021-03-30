@@ -3,22 +3,15 @@
 </template>
 
 <script>
+import { getAppeaList } from "@/api/index";
+
 export default {
-  name: "ScrollBoard",
+  props: ["type"],
+
   data() {
     return {
       config: {
-        // header: ['时间', '病害信息', '数量', '标段'],
-        data: [
-          ["关于科技型企业申请补贴的政策？"],
-          ["关于科技型企业申请补贴大是大非的政策？"],
-          ["关于科技型企业申请sad哈师大好好的哈说补贴的政策？"],
-          ["关于科技请补贴的政策？"],
-          ["关于科技型企业申请说的补贴的政策？"],
-          ["关于科技型企业申请补贴的政策？"],
-          ["关于科技型企业申请补贴的政策？"],
-          ["关于科技型企业申请补贴的政策？"],
-        ],
+        data: "",
         index: true,
         columnWidth: [50, 300],
         align: ["center"],
@@ -30,6 +23,48 @@ export default {
         evenRowBGC: "rgba(22, 30, 48,1)",
       },
     };
+  },
+
+  watch: {
+    type() {
+      this.getAppeaList();
+    },
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.getAppeaList();
+    });
+    this.timer = setInterval(this.getAppeaList, 600000);
+  },
+
+  methods: {
+    getAppeaList() {
+      getAppeaList({ state: this.type, page: 1, pageSize: 20 })
+        .then((res) => {
+          console.log(res, "0000000000000000...", res.data.data.list);
+          let arr = [];
+          res.data.data.list.forEach((item) => {
+            arr.push([item.appealTitle]);
+          });
+          console.log(arr, "000000000000");
+          this.config = {
+            data: arr,
+            index: true,
+            columnWidth: [50, 300],
+            align: ["center"],
+            rowNum: 7,
+            headerBGC: "#1981f6",
+            headerHeight: 45,
+            // oddRowBGC: 'rgba(22, 30, 48,1)',
+            oddRowBGC: "#000000",
+            evenRowBGC: "rgba(22, 30, 48,1)",
+          };
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

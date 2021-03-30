@@ -3,44 +3,95 @@
 </template>
 
 <script>
+import { getAppealRanking } from "@/api/index";
+
 export default {
+  props: ["type"],
+
   data() {
     return {
       config: {
         data: [
-          {
-            name: "日常养护",
-            value: 55,
-          },
-          {
-            name: "交通事故",
-            value: 120,
-          },
-          {
-            name: "路面",
-            value: 78,
-          },
-          {
-            name: "桥通",
-            value: 66,
-          },
-          {
-            name: "计日工",
-            value: 80,
-          },
+          // {
+          //   name: "日常养护",
+          //   value: 55,
+          // },
+          // {
+          //   name: "交通事故",
+          //   value: 120,
+          // },
+          // {
+          //   name: "路面",
+          //   value: 78,
+          // },
+          // {
+          //   name: "桥通",
+          //   value: 66,
+          // },
+          // {
+          //   name: "计日工",
+          //   value: 32,
+          // },
+          // {
+          //   name: "计日工111",
+          //   value: 19,
+          // },
+          // {
+          //   name: "计日工222",
+          //   value: 54,
+          // },
         ],
         rowNum: 5,
+        waitTime: 2000,
         unit: "%",
         showValue: true,
+        carousel: "single",
       },
     };
+  },
+
+  watch: {
+    type() {
+      this.getAppealRanking();
+    },
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.getAppealRanking();
+    });
+    this.timer = setInterval(this.getAppealRanking, 600000);
+  },
+
+  beforeDestroy() {
+    // 离开页面之前清除定时器
+    clearInterval(this.timer);
+  },
+
+  methods: {
+    getAppealRanking() {
+      getAppealRanking({
+        page: 1,
+        pageSize: 20,
+        typeId: 1,
+        levelType: this.type,
+        order: true,
+      })
+        .then((res) => {
+          console.log(res, "44444444444444");
+          this.config = { data: res.data.data };
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 .dv-scroll-ranking-board {
- /deep/ .row-item {
+  /deep/ .row-item {
     .ranking-info {
       font-size: 14px;
       color: #9aacd8 !important;

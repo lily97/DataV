@@ -2,7 +2,6 @@
   <div style="width: 100%; height: 100%" ref="echar"></div>
 </template>
 
-
 <script type="text/javascript" src="../static/echarts.min.js"></script>
 <script type="text/javascript" src="../static/echarts-wordcloud.js"></script>
 
@@ -11,63 +10,55 @@
 import * as echarts from "echarts";
 // require("../static/echarts.min.js");
 require("echarts-wordcloud");
+import { getWordList } from "@/api/index";
 export default {
   data() {
     return {
-      value: [
-        {
-          name: "花鸟市场",
-          value: 1446,
-        },
-        {
-          name: "汽车",
-          value: 928,
-        },
-        {
-          name: "视频",
-          value: 906,
-        },
-        {
-          name: "电视",
-          value: 825,
-        },
-        {
-          name: "画像",
-          value: 800,
-        },
-        {
-          name: "动漫",
-          value: 486,
-        },
-      ],
+      wordList: [],
     };
   },
   mounted() {
-    this.initChart();
+    this.getWordList();
   },
   methods: {
+    getWordList() {
+      getWordList({})
+        .then((res) => {
+          console.log(res, "111111111111111");
+          res.data.data.forEach((item) => {
+            this.wordList.push({
+              name: item.dic.word,
+              value: Math.round(Math.random() * 20 + 50),
+            });
+          });
+          this.initChart();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
     initChart() {
       var myChart = echarts.init(this.$refs.echar);
       var option = {
         title: {
           text: "词云", //标题
-          show:false,
+          show: false,
           x: "center",
           textStyle: {
             fontSize: 23,
           },
         },
-        // backgroundColor: "#F7F7F7",
         tooltip: {
-          show: true,
+          show: false,
         },
         series: [
           {
             name: "热点分析", //数据提示窗标题
             type: "wordCloud",
-            sizeRange: [6, 66], //画布范围，如果设置太大会出现少词（溢出屏幕）
+            sizeRange: [15, 40], //画布范围，如果设置太大会出现少词（溢出屏幕）
             rotationRange: [0, 0], //数据翻转范围
-            //shape: 'circle',
+            shape: "pentagon",
             textPadding: 0,
             autoSize: {
               enable: true,
@@ -93,7 +84,7 @@ export default {
                 // shadowColor: "#333",
               },
             },
-            data: this.value,
+            data: this.wordList,
           },
         ],
       };
