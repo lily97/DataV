@@ -57,6 +57,16 @@ export default {
       var option = {
         tooltip: {
           trigger: "axis",
+          // formatter:'{b}{c}',
+          formatter: (params) => {
+            return (
+              params[0].axisValue +
+              "</br>" +
+              params[0].marker +
+              "数量 : " +
+              params[0].value
+            );
+          },
           axisPointer: {
             type: "cross",
             label: {

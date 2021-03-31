@@ -93,10 +93,6 @@
                 月
               </div>
             </div>
-            <div class="title-right">
-              <div>更多</div>
-              <div class="jiantou"></div>
-            </div>
           </div>
           <div class="content">
             <CharLine v-bind:type="check1" />
@@ -122,10 +118,10 @@
                 县
               </div>
             </div>
-            <div class="title-right">
+            <a class="title-right" href="/pageCommerce/rankDetail.html?type=1">
               <div>更多</div>
               <div class="jiantou"></div>
-            </div>
+            </a>
           </div>
           <div class="content">
             <RankingEnd v-bind:type="check2" />
@@ -151,10 +147,10 @@
                 县
               </div>
             </div>
-            <div class="title-right">
+            <a class="title-right" href="/pageCommerce/rankDetail.html?type=2">
               <div>更多</div>
               <div class="jiantou"></div>
-            </div>
+            </a>
           </div>
           <div class="content">
             <RankingSatisfied v-bind:type="check3" />
@@ -208,8 +204,6 @@ export default {
 
 
 <style lang="less">
-// @import "../../assets/scss/mixin.scss";
-
 #data-view {
   width: 100%;
   height: 100%;
@@ -372,11 +366,11 @@ export default {
           background: url("../../assets/img/title-3.png") no-repeat center;
         }
         .title-center {
-          width: 20%;
+          width: 25%;
           font-size: 12px;
           color: #4d9f95;
           position: absolute;
-          left: 65%;
+          left: 73%;
           display: flex;
           justify-content: space-between;
           align-items: center;

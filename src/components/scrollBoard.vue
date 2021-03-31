@@ -10,18 +10,7 @@ export default {
 
   data() {
     return {
-      config: {
-        data: "",
-        index: true,
-        columnWidth: [50, 300],
-        align: ["center"],
-        rowNum: 7,
-        headerBGC: "#1981f6",
-        headerHeight: 45,
-        // oddRowBGC: 'rgba(22, 30, 48,1)',
-        oddRowBGC: "#000000",
-        evenRowBGC: "rgba(22, 30, 48,1)",
-      },
+      config: {},
     };
   },
 
@@ -38,16 +27,19 @@ export default {
     this.timer = setInterval(this.getAppeaList, 600000);
   },
 
+  beforeDestroy() {
+    // 离开页面之前清除定时器
+    clearInterval(this.timer);
+  },
+
   methods: {
     getAppeaList() {
       getAppeaList({ state: this.type, page: 1, pageSize: 20 })
         .then((res) => {
-          console.log(res, "0000000000000000...", res.data.data.list);
           let arr = [];
           res.data.data.list.forEach((item) => {
             arr.push([item.appealTitle]);
           });
-          console.log(arr, "000000000000");
           this.config = {
             data: arr,
             index: true,

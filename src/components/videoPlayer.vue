@@ -1,5 +1,12 @@
 <template>
-  <video :src="url" :autoplay="true" controls="controls" loop="loop"></video>
+  <video
+    height="250"
+    :src="url"
+    controls="controls"
+    autoplay="autoplay"
+    loop="loop"
+    preload="preload"
+  ></video>
 </template>
 
 <script>
@@ -8,21 +15,24 @@ import { getVideo } from "@/api/index";
 export default {
   data() {
     return {
-      src1:
-        "https://vd4.bdstatic.com/mda-kkjw724xrgeuruaw/sc/mda-kkjw724xrgeuruaw.mp4",
-      src2: "../assets/mp4/test.mp4",
-      controls: true,
       url: "",
+      timer: null,
     };
   },
   mounted() {
     this.getVideo();
+    this.timer = setInterval(this.getVideo, 600000);
   },
+
+  beforeDestroy() {
+    // 离开页面之前清除定时器
+    clearInterval(this.timer);
+  },
+
   methods: {
     getVideo() {
       getVideo({})
         .then((res) => {
-          console.log(res, "video");
           this.url = res.data.data.url;
         })
         .catch((error) => {
@@ -30,7 +40,6 @@ export default {
         });
     },
   },
-  beforeDestroy() {},
 };
 </script>
 

@@ -83,7 +83,8 @@ export default {
       departList: [],
       appelaList: [],
       dealList: [],
-      timer: null,
+      timer1: null,
+      timer2: null,
       isFirts1: true,
       isFirts2: true,
       isFirts3: true,
@@ -92,8 +93,16 @@ export default {
   },
   mounted() {
     this.getDepartList();
-    this.timer = setInterval(this.gogos, 3000);
+    this.timer1 = setInterval(this.getDepartList, 600000);
+    this.timer2 = setInterval(this.gogos, 3000);
   },
+
+  beforeDestroy() {
+    // 离开页面之前清除定时器
+    clearInterval(this.timer1);
+    clearInterval(this.timer2);
+  },
+
   methods: {
     gogos() {
       // 涉企部门
@@ -166,7 +175,6 @@ export default {
       getDepartList({})
         .then((res) => {
           this.departList = res.data.data;
-          console.log(res, "0000000");
         })
         .catch((error) => {
           console.log(error);
@@ -176,7 +184,6 @@ export default {
       getAppealCount({})
         .then((res) => {
           this.appelaList = res.data.data;
-          console.log(res, "1111111111");
         })
         .catch((error) => {
           console.log(error);
@@ -186,7 +193,6 @@ export default {
       getAppealTimeCount({})
         .then((res) => {
           this.dealList = res.data.data;
-          console.log(res, "22222222222");
         })
         .catch((error) => {
           console.log(error);

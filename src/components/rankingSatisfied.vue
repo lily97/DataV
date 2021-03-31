@@ -11,41 +11,6 @@ export default {
   data() {
     return {
       config: {
-        data: [
-          // {
-          //   name: "日常养护",
-          //   value: 55,
-          // },
-          // {
-          //   name: "交通事故",
-          //   value: 120,
-          // },
-          // {
-          //   name: "路面",
-          //   value: 78,
-          // },
-          // {
-          //   name: "桥通",
-          //   value: 66,
-          // },
-          // {
-          //   name: "计日工",
-          //   value: 32,
-          // },
-          // {
-          //   name: "计日工111",
-          //   value: 19,
-          // },
-          // {
-          //   name: "计日工222",
-          //   value: 54,
-          // },
-        ],
-        rowNum: 5,
-        waitTime: 2000,
-        unit: "星",
-        showValue: true,
-        carousel: "single",
       },
     };
   },
@@ -79,7 +44,14 @@ export default {
       })
         .then((res) => {
           console.log(res, "5555555555");
-          this.config = { data: res.data.data };
+          this.config = {
+            data: res.data.data,
+            rowNum: 5,
+            waitTime: 2000,
+            unit: "星",
+            showValue: true,
+            carousel: "single",
+          };
         })
         .catch((error) => {
           console.log(error);

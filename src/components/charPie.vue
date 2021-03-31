@@ -5,6 +5,7 @@
 <script>
 import * as echarts from "echarts";
 import { getAppealAccounted } from "@/api/index";
+import { number } from "echarts";
 
 require("echarts/theme/macarons"); // echarts theme
 export default {
@@ -49,18 +50,44 @@ export default {
       var option = {
         tooltip: {
           trigger: "item",
+          // backgroundColor: "rgba(0,0,0,0.5)",
+          formatter: "诉求数量</br>{b} : {c} ({d}%)",
         },
         series: [
           {
             name: "",
             type: "pie",
             radius: ["30%", "60%"],
-            color: ["#b58c3d", "#4d82df", "#a83c3a", "#629d94", "#403dbf",'#7CFEB1','#FC8452','#73C0DE'],
+            color: [
+              "#b58c3d",
+              "#4d82df",
+              "#a83c3a",
+              "#629d94",
+              "#403dbf",
+              "#7CFEB1",
+              "#FC8452",
+              "#73C0DE",
+            ],
             label: {
               textStyle: {
                 color: "#ffffff",
                 fontSize: 14,
               },
+              formatter: (params) => {
+                return params.name + "\n\n" + params.percent + "%";
+              },
+              // formatter: "{b}\n{per|{d}%}",
+              // formatter: "{name|{b}}\n{time|{c}}\n{per|{d}%}",
+              // rich: {
+              //   time: {
+              //     fontSize: 10,
+              //     color: "#999",
+              //   },
+              //   per: {
+              //     fontSize: 10,
+              //     color: "red",
+              //   },
+              // },
             },
             data: this.charInfo,
           },

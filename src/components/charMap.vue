@@ -14,7 +14,6 @@ export default {
     return {
       mapJson: "https://geo.datav.aliyun.com/areas_v2/bound/410000_full.json", // 河南省
       //   mapJson: "../assets/mapJson/henan.json",
-      name: "小明00",
       index: -1,
       timer1: null,
       timer2: null,
@@ -22,19 +21,19 @@ export default {
   },
   mounted() {
     this.getMapInfo();
-    // this.timer1 = setInterval(this.getMapInfo, 3000);
+    // this.timer1 = setInterval(this.getMapInfo, 600000);
   },
 
-  // beforeDestroy() {
-  //   // 离开页面之前销毁实例
-  //   if (this.chart) {
-  //     this.chart.dispose();
-  //     this.chart = null;
-  //   }
-  //   // 离开页面之前清除定时器
-  //   clearInterval(this.timer1);
-  //   clearInterval(this.timer2);
-  // },
+  beforeDestroy() {
+    // 离开页面之前销毁实例
+    if (this.chart) {
+      this.chart.dispose();
+      this.chart = null;
+    }
+    // 离开页面之前清除定时器
+    // clearInterval(this.timer1);
+    clearInterval(this.timer2);
+  },
 
   methods: {
     // 调用接口请求数据
@@ -60,9 +59,13 @@ export default {
 
     // 实例化地图
     initChart() {
+      // if (this.chart) {
+      //   this.chart.dispose(); // 如果图例已经渲染 销毁他并重新渲染
+      // }
+      // clearInterval(this.timer2);
+      // this.index = -1;
       this.chart = echarts.init(this.$refs.echar);
       this.chart.showLoading();
-
       $.getJSON(this.mapJson, (geoJson) => {
         this.chart.hideLoading();
         echarts.registerMap("henan", geoJson);
